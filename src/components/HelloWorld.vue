@@ -2,13 +2,6 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <h2>Essential Links</h2>
-    <h2>Ecosystem</h2>
-    <div class="test">
-      popopo
-      <div class="title">popopo</div>
-          <div></div>
-    </div>
-    <Signup></Signup>
   </div>
 </template>
 
@@ -22,7 +15,7 @@ export default {
   },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to meemo!!'
     }
   }
 }
@@ -43,13 +36,6 @@ li {
 a {
   color: red;
   display: none;
-}
-.test {
-  font-size: 25px;
-  color: #eee;
-  .title {
-  color: deepskyblue;
-  }
 }
 
 </style>
