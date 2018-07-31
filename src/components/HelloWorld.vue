@@ -5,7 +5,7 @@
     <h2>Ecosystem</h2>
     <div class="test">
       popopo
-      <div class="title">popopo2</div>
+      <div class="title">popopo</div>
           <div></div>
     </div>
     <Signup></Signup>
