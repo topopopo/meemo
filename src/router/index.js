@@ -1,9 +1,8 @@
 // index.js
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 import Signup from '@/components/signup'
-// import Signin from '@/components/signin'
+import Welcome from '@/pages/Welcome'
 
 Vue.use(Router)
 
@@ -11,8 +10,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: '"HelloWorld"',
-      component: HelloWorld
+      name: 'welcmome',
+      component: Welcome
     },
     {
       path: '/signup',
