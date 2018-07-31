@@ -6,9 +6,14 @@
     <div class="test">
       popopo
       <div class="title">popopo</div>
-          <div></div>
+          <div>test</div>
     </div>
     <Signup></Signup>
+    <div class="container">
+    <div class="d-flex">
+      <p>1234</p><p>5678</p>
+    </div>
+  </div>
   </div>
 </template>
 
@@ -46,7 +51,7 @@ a {
 }
 .test {
   font-size: 25px;
-  color: #eee;
+  color: #fff;
   .title {
   color: deepskyblue;
   }
