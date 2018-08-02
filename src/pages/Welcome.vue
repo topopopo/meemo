@@ -12,11 +12,11 @@
                 <div class="col-sm-4 d-flex align-items-center justify-content-center">
                     <transition name="bounce">
                         <div v-if="show" class="signin_balloon">
-                            <h2>Signin???</h2>
+                            <signin></signin>
                         </div>
                     </transition>
                 </div>
-                <div @click="show = !show" class="col-sm-4" style="cursor: pointer;"><img src="../assets/images/kosuge.jpg"></div>
+                <div @click="show = !show" class="col-sm-4" style="cursor: pointer;"><img src="../assets/images/logo.png"></div>
                 <div class="col-sm-4 d-flex align-items-center justify-content-center">
                     <transition name="bounce">
                         <div v-if="show" class="signup_balloon">
@@ -25,8 +25,6 @@
                     </transition>
                 </div>
             </div>
-            <div>↑</div>
-            <div>CLICK HERE</div>
             <transition
                 :duration="{ enter: 500, leave: 800 }"
                 name="custom-classes-transition"
@@ -34,7 +32,7 @@
                 leave-active-class="animated bounceOutRight"
             >
                 <div v-if="show" class="google_baloon">
-                    <h2>もしかして、、、google?</h2>
+                    <h2>google?</h2>
                 </div>
             </transition>
         </div>
@@ -42,6 +40,10 @@
 </template>
 
 <script>
+import Signin from '../components/SignIn'
+// import { mapGetters } from 'vuex'
+// import * as types from '../store/mutation-types'
+
 export default {
   layout: 'app',
   name: 'welcome',
@@ -51,11 +53,17 @@ export default {
       show: false
     }
   },
+  props: {
+  },
+  computed: {
+  },
   methods: {
   },
   created () {
+    console.log('log')
   },
   components: {
+    Signin
   }
 }
 </script>
@@ -84,6 +92,7 @@ export default {
         }
 
         .title_balloon {
+            font-family: 'Lobster', cursive;
             display: inline-block;
             position: relative;
             margin: 1.5em 0;
@@ -92,7 +101,7 @@ export default {
             max-width: 100%;
             color: #555;
             font-size: 16px;
-            background: #e0edff;
+            background: #fff;
             border-radius: 15px;
 
             :before {
@@ -102,14 +111,11 @@ export default {
                 left: 50%;
                 margin-left: -15px;
                 border: 15px solid transparent;
-                border-top: 15px solid #e0edff;
+                border-top: 15px solid #fff;
             }
 
             h2 {
                 font-size: 100px;
-                &:hover {
-                    color: red;
-                }
             }
         }
         .v-transition {
@@ -151,10 +157,11 @@ export default {
         max-width: 100%;
         color: #555;
         font-size: 16px;
-        background: #e0edff;
+        background: #fff;
         border-radius: 15px;
         display: flex;
         justify-content: center;
+        cursor: pointer;
     }
     .signin_balloon:before {
         content: "";
@@ -163,7 +170,7 @@ export default {
         left: 100%;
         margin-top: -15px;
         border: 15px solid transparent;
-        border-left: 15px solid #e0edff;
+        border-left: 15px solid #fff;
     }
     .signup_balloon:before {
         content: "";
@@ -172,7 +179,7 @@ export default {
         left: -30px;
         margin-top: -15px;
         border: 15px solid transparent;
-        border-right: 15px solid #e0edff;
+        border-right: 15px solid #fff;
     }
     .google_baloon:before {
         content: "";
@@ -181,7 +188,13 @@ export default {
         left: 50%;
         margin-left: -15px;
         border: 15px solid transparent;
-        border-bottom: 15px solid #e0edff;
+        border-bottom: 15px solid #fff;
+    }
+    .signin_balloon:hover,
+    .signup_balloon:hover,
+    .google_baloon:hover {
+        color: #000;
+        padding: 20px 35px;
     }
 }
 </style>
