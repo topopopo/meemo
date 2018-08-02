@@ -1,4 +1,4 @@
-// グローバル変数　定義
+// グローバル変数 定義
 
 // welcome.vue
 export const SHOW_SIGNIN_FORM = 1

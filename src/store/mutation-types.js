@@ -1,4 +1,3 @@
 // welcome.js
-export const SIGNIN_FORM = 'SIGNIN_FORM'
-export const SIGNUP_FORM = 'SIGNUP_FORM'
-export const GOOGLE_FORM = 'GOOGLE_FORM'
+export const WELCOME_MENU_STATE = 'WELCOME_MENU_STATE'
+export const UPDATE_WELCOME_MENU_STATE = 'UPDATE_WELCOME_MENU_STATE'
