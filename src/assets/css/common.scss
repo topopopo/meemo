@@ -5,3 +5,17 @@ img {
 body {
     font-family: Arial, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, メイリオ, Meiryo, "ＭＳＰゴシック", "MS PGothic", sans-serif;
 }
+
+//ブレイクポイント設定
+$breakpoints: (
+  'sm': 'screen and (max-width: 576px)',
+  'md': 'screen and (max-width: 768px)',
+  'lg': 'screen and (max-width: 992px)',
+  'xl': 'screen and (max-width: 1200px)',
+) !default;
+
+@mixin mq($breakpoint: md) {
+    @media #{map-get($breakpoints, $breakpoint)} {
+      @content;
+    }
+}
