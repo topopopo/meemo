@@ -1,11 +1,11 @@
 <template>
-    <div class="signin">
-        <h2 @click=showlogin>Sign in???</h2>
+    <div class="signup">
+        <h2 @click=showform>Sign up???</h2>
         <transition name="form">
             <div v-if="show" class="form_list">
                 <input  type="text" placeholder="Username" >
                 <input  type="password" placeholder="Password">
-                <button >sign in</button>
+                <button >sign up</button>
             </div>
         </transition>
     </div>
@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: 'signin',
+  name: 'signup',
 
   props: {},
   data () {
@@ -22,8 +22,7 @@ export default {
     }
   },
   methods: {
-    showlogin () {
-      console.log('popopopo')
+    showform () {
       this.show = !this.show
     }
   },
@@ -37,7 +36,7 @@ export default {
 <style lang="scss" scoped>
 @import '../assets/css/common.scss';
 
-.signin {
+.signup {
     @include mq(sm) {
         width: 100%;
     }

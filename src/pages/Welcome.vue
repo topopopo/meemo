@@ -2,45 +2,47 @@
     <div>
         <div class="container" id="welcome">
             <div class="title">
-                <transition name="bounce">
-                    <div v-if="show" class="title_balloon">
-                        <h2>meemo!!!</h2>
-                    </div>
-                </transition>
+                <div class="title_balloon">
+                    <h2>meemo!!!</h2>
+                </div>
             </div>
             <div class="row">
                 <div class="col-sm-4 d-flex align-items-center justify-content-center">
-                    <transition name="bounce">
+                    <transition name="bounce"
+                    leave-active-class="animated bounceOutRight">
                         <div v-if="show" class="signin_balloon">
                             <signin></signin>
                         </div>
                     </transition>
                 </div>
-                <div @click="show = !show" class="col-sm-4" style="cursor: pointer;"><img src="../assets/images/logo.png"></div>
+                <div @click="show = !show" class="col-4 col-sm-4 welcome_img"><img src="../assets/images/logo.png"></div>
                 <div class="col-sm-4 d-flex align-items-center justify-content-center">
-                    <transition name="bounce">
+                    <transition name="bounce"
+                    leave-active-class="animated bounceOutRight">
                         <div v-if="show" class="signup_balloon">
-                            <h2>Signup???</h2>
+                            <signup></signup>
                         </div>
                     </transition>
                 </div>
             </div>
-            <transition
-                :duration="{ enter: 500, leave: 800 }"
-                name="custom-classes-transition"
-                enter-active-class="animated tada"
-                leave-active-class="animated bounceOutRight"
-            >
-                <div v-if="show" class="google_baloon">
-                    <h2>google?</h2>
-                </div>
-            </transition>
+            <div class="d-flex align-items-center justify-content-center">
+                <transition
+                    :duration="{ enter: 500, leave: 800 }"
+                    name="bounce"
+                    leave-active-class="animated bounceOutRight"
+                >
+                    <div v-if="show" class="google_baloon">
+                        <h2>google?</h2>
+                    </div>
+                </transition>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 import Signin from '../components/SignIn'
+import Signup from '../components/Signup'
 // import { mapGetters } from 'vuex'
 // import * as types from '../store/mutation-types'
 
@@ -60,24 +62,25 @@ export default {
   methods: {
   },
   created () {
-    console.log('log')
   },
   components: {
-    Signin
+    Signin,
+    Signup
   }
 }
 </script>
 
 <style scoped lang="scss">
+@import '../assets/css/common.scss';
 #welcome {
     .title {
         font-family: 'Lobster', cursive;
         height: 215px;
+        @include mq(sm){
+            height: auto;
+        }
         .bounce-enter-active {
             animation: bounce-in .5s;
-        }
-        .bounce-leave-active {
-            animation: bounce-in .5s reverse;
         }
         @keyframes bounce-in {
             0% {
@@ -116,6 +119,9 @@ export default {
 
             h2 {
                 font-size: 100px;
+                @include mq(sm) {
+                    font-size: 48px;
+                }
             }
         }
         .v-transition {
@@ -126,14 +132,10 @@ export default {
             transform: scale3d(0, 0, 1);
             opacity: 0;
         }
-
     }
 
     .bounce-enter-active {
         animation: bounce-in .5s;
-    }
-    .bounce-leave-active {
-        animation: bounce-in .5s reverse;
     }
     @keyframes bounce-in {
         0% {
@@ -162,6 +164,16 @@ export default {
         display: flex;
         justify-content: center;
         cursor: pointer;
+        @include mq(){
+            padding: 15px 10px;
+        }
+        @include mq(sm) {
+            color: #fff;
+            background-color: #000;
+            margin: 0;
+            width: 100%;
+            cursor: unset;
+        }
     }
     .signin_balloon:before {
         content: "";
@@ -171,6 +183,9 @@ export default {
         margin-top: -15px;
         border: 15px solid transparent;
         border-left: 15px solid #fff;
+        @include mq(sm) {
+            display: none;
+        }
     }
     .signup_balloon:before {
         content: "";
@@ -180,6 +195,9 @@ export default {
         margin-top: -15px;
         border: 15px solid transparent;
         border-right: 15px solid #fff;
+        @include mq(sm) {
+            display: none;
+        }
     }
     .google_baloon:before {
         content: "";
@@ -189,12 +207,29 @@ export default {
         margin-left: -15px;
         border: 15px solid transparent;
         border-bottom: 15px solid #fff;
+        @include mq(sm) {
+            display: none;
+        }
     }
     .signin_balloon:hover,
     .signup_balloon:hover,
     .google_baloon:hover {
         color: #000;
         padding: 20px 35px;
+        @include mq(sm) {
+            color: #fff;
+            padding: 15px 10px;
+        }
+    }
+
+    .welcome_img {
+        cursor: pointer;
+        @include mq(sm) {
+            -ms-flex-order: -1;
+            -webkit-box-ordinal-group: 0;
+            order: -1;
+            margin: auto;
+        }
     }
 }
 </style>
