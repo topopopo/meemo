@@ -19,3 +19,11 @@ $breakpoints: (
       @content;
     }
 }
+
+//position 
+.p-absolute {
+    position: absolute;
+}
+.pr {
+    position: relative;
+}
