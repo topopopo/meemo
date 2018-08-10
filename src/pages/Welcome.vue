@@ -6,15 +6,22 @@
                     <h2>meemo!!!</h2>
                 </div>
             </div>
-            <div class="row">
-                    <div class="col-sm-4 pr d-flex align-items-center justify-content-center">
-                        <WelcomeBalloon Mode="signin"></WelcomeBalloon>
-                        <welcome-form></welcome-form>
-                    </div>
-                <div @click='AllMode()' class="col-4 col-sm-4 welcome_img"><img src="../assets/images/logo.png"></div>
-                <div class="col-sm-4 d-flex align-items-center justify-content-center pr">
+            <div class="row" v-bind:class="{ 'pc-noneF' : isNone }">
+                <div class="col-sm-4 p-relative d-flex align-items-center justify-content-center">
+                    <WelcomeBalloon Mode="signin"></WelcomeBalloon>
+                </div>
+
+                <div @click='AllMode()' class="col-4 col-sm-4 welcome_img">
+                    <transition
+                    leave-active-class="animated bounceOutRight">
+                        <img src="../assets/images/logo.png">
+                    </transition>
+                </div>
+
+                <div class="col-sm-4 p-relative d-flex align-items-center justify-content-center">
 
                     <WelcomeBalloon Mode="signup"></WelcomeBalloon>
+
                 </div>
             </div>
             <div class="d-flex align-items-center justify-content-center">
@@ -22,6 +29,17 @@
                 <WelcomeBalloon Mode="google"></WelcomeBalloon>
 
             </div>
+
+            <transition name=form enter-active-class="animated bounceInLeft">
+                    <welcome-form v-if="welcomeState === SHOW_SIGN_IN" FormName="signin"></welcome-form>
+            </transition>
+                <transition name=form enter-active-class="animated bounceInLeft">
+                    <welcome-form v-if="welcomeState === SHOW_SIGN_UP" FormName="signup"></welcome-form>
+            </transition>
+
+            <WelcomeSideMenu v-if="welcomeState === SHOW_SIGN_UP" text='sign in'></WelcomeSideMenu>
+            <WelcomeSideMenu v-if="welcomeState === SHOW_SIGN_IN" text='sign up'></WelcomeSideMenu>
+
         </div>
     </div>
 </template>
@@ -32,18 +50,27 @@ import WelcomeForm from '../components/WelcomeForm'
 import { mapGetters, mapActions } from 'vuex'
 import * as types from '../store/mutation-types'
 import * as consts from '../consts/const'
+import WelcomeSideMenu from '../components/WelcomeSideMenu'
 
 export default {
   layout: 'app',
   name: 'welcome',
 
   data: () => ({
-    popopo: true,
+    isNone: false,
     SHOW_ALL: consts.SHOW_ALL_FORM,
     SHOW_SIGN_IN: consts.SHOW_SIGNIN_FORM,
     SHOW_SIGN_UP: consts.SHOW_SIGNUP_FORM
   }),
   props: {
+  },
+  watch: {
+    welcomeState: {
+      handler (val) {
+        this.isNone = this.welcomeState !== 0
+      },
+      deep: true
+    }
   },
   computed: {
     ...mapGetters({
@@ -60,23 +87,14 @@ export default {
       this[types.UPDATE_WELCOME_ALL_STATE](true)
       // リセット
       this[types.UPDATE_WELCOME_MENU_STATE](0)
-    },
-    changeColom () {
-      console.log(this.welcomeState)
-      //   switch (this.welcomeState) {
-      //     case this.SHOW_SIGN_IN:
-      //       return 'col-sm-8'
-      //     case this.SHOW_SIGN_UP:
-      //       return 'col-sm-8'
-      //   }
-      return 'col-sm-8'
     }
   },
   created () {
   },
   components: {
     WelcomeBalloon,
-    WelcomeForm
+    WelcomeForm,
+    WelcomeSideMenu
   }
 }
 </script>

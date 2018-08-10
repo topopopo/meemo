@@ -3,7 +3,7 @@
         <div v-if="Mode == 'signin'">
             <div class="signin">
                 <transition name="bounce"
-                    leave-active-class="animated bounceOutRight p-absolute">
+                    >
                     <div v-if="show" class="signin_balloon" key="0">
                         <h2 @click=showlogin>Sign in???</h2>
                     </div>
@@ -14,16 +14,9 @@
         <div v-if="Mode == 'signup'">
             <div class="signup">
                 <transition name="bounce"
-                    leave-active-class="animated bounceOutRight p-absolute">
+                    >
                     <div v-if="show" class="signup_balloon">
                         <h2 @click=showform>Sign up???</h2>
-                        <!-- <transition name="form">
-                            <div v-if="welcomeState === SHOW_SIGN_UP" class="form_list">
-                                <input  type="text" placeholder="Username" >
-                                <input  type="password" placeholder="Password">
-                                <button >sign up</button>
-                            </div>
-                        </transition> -->
                     </div>
                 </transition>
             </div>
@@ -31,9 +24,8 @@
 
         <div v-if="Mode == 'google'">
             <transition
-                :duration="{ enter: 500, leave: 800 }"
                 name="bounce"
-                leave-active-class="animated bounceOutRight">
+                >
                 <div v-if="show" class="google_baloon">
                     <h2>google?</h2>
                 </div>
@@ -72,12 +64,13 @@ export default {
       types.UPDATE_WELCOME_ALL_STATE
     ]),
     showlogin () {
-      console.log(this.welcomeState)
       this[types.UPDATE_WELCOME_MENU_STATE](consts.SHOW_SIGNIN_FORM)
       this[types.UPDATE_WELCOME_ALL_STATE](false)
-      console.log(this.welcomeState)
     },
     showform () {
+      console.log('popopo')
+      this[types.UPDATE_WELCOME_MENU_STATE](consts.SHOW_SIGNUP_FORM)
+      this[types.UPDATE_WELCOME_ALL_STATE](false)
     }
   },
   created () {
@@ -91,7 +84,9 @@ export default {
 <style lang="scss" scoped>
 @import '../assets/css/common.scss';
 
-.signin {
+.signin,
+.signup,
+.google {
     @include mq(sm) {
         width: 100%;
     }
@@ -107,11 +102,27 @@ export default {
     }
     .p-absolute {
         position: absolute;
+        left: 0;
+        top: 0;
+    }
+}
+
+.signup {
+    .p-absolute {
+        position: absolute;
+        left: 0;
     }
 }
 
 .bounce-enter-active {
     animation: bounce-in .5s;
+}
+.bounce-leave {
+  opacity: 1;
+  position: absolute;
+}
+.bounce-leave-to {
+  opacity: 0;
 }
 @keyframes bounce-in {
     0% {
@@ -146,7 +157,7 @@ export default {
     }
     @include mq(sm) {
         color: #fff;
-        background-color: #000;
+        background-color: unset;
         margin: 0;
         width: 100%;
         cursor: unset;

@@ -6,6 +6,7 @@ body {
     font-family: Arial, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, メイリオ, Meiryo, "ＭＳＰゴシック", "MS PGothic", sans-serif;
 }
 
+
 //ブレイクポイント設定
 $breakpoints: (
   'sm': 'screen and (max-width: 576px)',
@@ -24,6 +25,26 @@ $breakpoints: (
 .p-absolute {
     position: absolute;
 }
-.pr {
+.p-relative {
     position: relative;
+}
+
+//PCorSP
+.pc-none {
+    display: none;
+    @include mq(sm){
+        display: block;
+    }
+}
+.sp-none {
+    display: block;
+    @include mq(sm){
+        display: none;
+    }
+}
+.pc-noneF {
+    display: none;
+    @include mq(sm){
+        display: flex;
+    }
 }
