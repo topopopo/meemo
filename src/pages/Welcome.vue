@@ -6,66 +6,95 @@
                     <h2>meemo!!!</h2>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-4 d-flex align-items-center justify-content-center">
-                    <transition name="bounce"
+            <div class="row" v-bind:class="{ 'pc-noneF' : isNone }">
+                <div class="col-sm-4 p-relative d-flex align-items-center justify-content-center">
+                    <WelcomeBalloon Mode="signin"></WelcomeBalloon>
+                </div>
+
+                <div @click='AllMode()' class="col-4 col-sm-4 welcome_img">
+                    <transition
                     leave-active-class="animated bounceOutRight">
-                        <div v-if="show" class="signin_balloon">
-                            <signin></signin>
-                        </div>
+                        <img src="../assets/images/logo.png">
                     </transition>
                 </div>
-                <div @click="show = !show" class="col-4 col-sm-4 welcome_img"><img src="../assets/images/logo.png"></div>
-                <div class="col-sm-4 d-flex align-items-center justify-content-center">
-                    <transition name="bounce"
-                    leave-active-class="animated bounceOutRight">
-                        <div v-if="show" class="signup_balloon">
-                            <signup></signup>
-                        </div>
-                    </transition>
+
+                <div class="col-sm-4 p-relative d-flex align-items-center justify-content-center">
+
+                    <WelcomeBalloon Mode="signup"></WelcomeBalloon>
+
                 </div>
             </div>
             <div class="d-flex align-items-center justify-content-center">
-                <transition
-                    :duration="{ enter: 500, leave: 800 }"
-                    name="bounce"
-                    leave-active-class="animated bounceOutRight"
-                >
-                    <div v-if="show" class="google_baloon">
-                        <h2>google?</h2>
-                    </div>
-                </transition>
+
+                <WelcomeBalloon Mode="google"></WelcomeBalloon>
+
             </div>
+
+            <transition name=form enter-active-class="animated bounceInLeft">
+                    <welcome-form v-if="welcomeState === SHOW_SIGN_IN" FormName="signin"></welcome-form>
+            </transition>
+                <transition name=form enter-active-class="animated bounceInLeft">
+                    <welcome-form v-if="welcomeState === SHOW_SIGN_UP" FormName="signup"></welcome-form>
+            </transition>
+
+            <WelcomeSideMenu v-if="welcomeState === SHOW_SIGN_UP" text='sign in'></WelcomeSideMenu>
+            <WelcomeSideMenu v-if="welcomeState === SHOW_SIGN_IN" text='sign up'></WelcomeSideMenu>
+
         </div>
     </div>
 </template>
 
 <script>
-import Signin from '../components/SignIn'
-import Signup from '../components/Signup'
-// import { mapGetters } from 'vuex'
-// import * as types from '../store/mutation-types'
+import WelcomeBalloon from '../components/WelcomeBalloon'
+import WelcomeForm from '../components/WelcomeForm'
+import { mapGetters, mapActions } from 'vuex'
+import * as types from '../store/mutation-types'
+import * as consts from '../consts/const'
+import WelcomeSideMenu from '../components/WelcomeSideMenu'
 
 export default {
   layout: 'app',
   name: 'welcome',
 
-  data () {
-    return {
-      show: false
-    }
-  },
+  data: () => ({
+    isNone: false,
+    SHOW_ALL: consts.SHOW_ALL_FORM,
+    SHOW_SIGN_IN: consts.SHOW_SIGNIN_FORM,
+    SHOW_SIGN_UP: consts.SHOW_SIGNUP_FORM
+  }),
   props: {
   },
+  watch: {
+    welcomeState: {
+      handler (val) {
+        this.isNone = this.welcomeState !== 0
+      },
+      deep: true
+    }
+  },
   computed: {
+    ...mapGetters({
+      welcomeState: types.WELCOME_MENU_STATE,
+      show: types.WELCOME_ALL_STATE
+    })
   },
   methods: {
+    ...mapActions([
+      types.UPDATE_WELCOME_MENU_STATE,
+      types.UPDATE_WELCOME_ALL_STATE
+    ]),
+    AllMode () {
+      this[types.UPDATE_WELCOME_ALL_STATE](true)
+      // リセット
+      this[types.UPDATE_WELCOME_MENU_STATE](0)
+    }
   },
   created () {
   },
   components: {
-    Signin,
-    Signup
+    WelcomeBalloon,
+    WelcomeForm,
+    WelcomeSideMenu
   }
 }
 </script>
@@ -131,94 +160,6 @@ export default {
         .v-enter, .v-leave {
             transform: scale3d(0, 0, 1);
             opacity: 0;
-        }
-    }
-
-    .bounce-enter-active {
-        animation: bounce-in .5s;
-    }
-    @keyframes bounce-in {
-        0% {
-            transform: scale(0);
-        }
-        50% {
-            transform: scale(12);
-        }
-        100% {
-            transform: scale(1);
-        }
-    }
-    .signin_balloon,
-    .signup_balloon,
-    .google_baloon {
-        font-family: 'Lobster', cursive;
-        position: relative;
-        margin: 1.5em 0;
-        padding: 15px 30px;
-        min-width: 120px;
-        max-width: 100%;
-        color: #555;
-        font-size: 16px;
-        background: #fff;
-        border-radius: 15px;
-        display: flex;
-        justify-content: center;
-        cursor: pointer;
-        @include mq(){
-            padding: 15px 10px;
-        }
-        @include mq(sm) {
-            color: #fff;
-            background-color: #000;
-            margin: 0;
-            width: 100%;
-            cursor: unset;
-        }
-    }
-    .signin_balloon:before {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 100%;
-        margin-top: -15px;
-        border: 15px solid transparent;
-        border-left: 15px solid #fff;
-        @include mq(sm) {
-            display: none;
-        }
-    }
-    .signup_balloon:before {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: -30px;
-        margin-top: -15px;
-        border: 15px solid transparent;
-        border-right: 15px solid #fff;
-        @include mq(sm) {
-            display: none;
-        }
-    }
-    .google_baloon:before {
-        content: "";
-        position: absolute;
-        top: -30px;
-        left: 50%;
-        margin-left: -15px;
-        border: 15px solid transparent;
-        border-bottom: 15px solid #fff;
-        @include mq(sm) {
-            display: none;
-        }
-    }
-    .signin_balloon:hover,
-    .signup_balloon:hover,
-    .google_baloon:hover {
-        color: #000;
-        padding: 20px 35px;
-        @include mq(sm) {
-            color: #fff;
-            padding: 15px 10px;
         }
     }
 
