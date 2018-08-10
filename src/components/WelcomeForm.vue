@@ -9,7 +9,6 @@
                     <button >sign in</button>
                 </div>
             </div>
-            <!-- <WelcomeSideMenu text='sign up'></WelcomeSideMenu> -->
         </div>
 
         <div class="signup" v-if="FormName == 'signup'">
@@ -22,7 +21,6 @@
                     <button >sign up</button>
                 </div>
             </div>
-            <!-- <WelcomeSideMenu text='sign in'></WelcomeSideMenu> -->
         </div>
     </div>
 </template>

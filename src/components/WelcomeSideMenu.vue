@@ -125,7 +125,7 @@ export default {
       position: absolute;
       top: 50%;
       left: 0;
-      margin-top: 100px;
+      margin-top: 50px;
       @include mq(sm) {
         display: none;
       }

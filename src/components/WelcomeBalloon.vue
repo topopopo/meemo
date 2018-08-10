@@ -90,10 +90,6 @@ export default {
     @include mq(sm) {
         width: 100%;
     }
-    &*:hover {
-        color: red;
-        opacity: 0.5;
-    }
     font-family: Arial, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, メイリオ, Meiryo, "ＭＳＰゴシック", "MS PGothic", sans-serif;
     h2 {
         font-family: 'Lobster', cursive;
