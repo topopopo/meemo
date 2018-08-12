@@ -51,6 +51,7 @@ import { mapGetters, mapActions } from 'vuex'
 import * as types from '../store/mutation-types'
 import * as consts from '../consts/const'
 import WelcomeSideMenu from '../components/WelcomeSideMenu'
+import firebase from 'firebase'
 
 export default {
   layout: 'app',
@@ -90,6 +91,12 @@ export default {
     }
   },
   created () {
+    firebase.auth().onAuthStateChanged(user => {
+      console.log(user)
+      if (user) {
+        this.$router.push('/editor')
+      }
+    })
   },
   components: {
     WelcomeBalloon,

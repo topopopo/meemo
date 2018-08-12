@@ -5,7 +5,7 @@
                 <transition name="bounce"
                     >
                     <div v-if="show" class="signin_balloon" key="0">
-                        <h2 @click=showlogin>Sign in???</h2>
+                        <h2 @click=showlogin>Sign in?</h2>
                     </div>
                 </transition>
             </div>
@@ -16,7 +16,7 @@
                 <transition name="bounce"
                     >
                     <div v-if="show" class="signup_balloon">
-                        <h2 @click=showform>Sign up???</h2>
+                        <h2 @click=showform>Sign up?</h2>
                     </div>
                 </transition>
             </div>
@@ -27,7 +27,7 @@
                 name="bounce"
                 >
                 <div v-if="show" class="google_baloon">
-                    <h2>google?</h2>
+                    <h2 @click="googleLogin">google?</h2>
                 </div>
             </transition>
         </div>
@@ -38,6 +38,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import * as types from '../store/mutation-types'
 import * as consts from '../consts/const'
+import firebase from 'firebase'
 
 export default {
   name: 'w-balloon',
@@ -71,10 +72,16 @@ export default {
       console.log('popopo')
       this[types.UPDATE_WELCOME_MENU_STATE](consts.SHOW_SIGNUP_FORM)
       this[types.UPDATE_WELCOME_ALL_STATE](false)
+    },
+    googleLogin () {
+      firebase
+        .auth()
+        .signInWithRedirect(new firebase.auth.GoogleAuthProvider())
+
+      console.log('google')
     }
   },
   created () {
-    console.log(this.Mode)
   },
   components: {
   }

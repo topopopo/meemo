@@ -4,9 +4,9 @@
             <div>
                 <h2>Sign in</h2>
                 <div class="form_list">
-                    <input  type="text" placeholder="Username" >
-                    <input  type="password" placeholder="Password">
-                    <button >sign in</button>
+                    <input  type="text" placeholder="Mail Adress" v-model="username">
+                    <input  type="password" placeholder="Password" v-model="password">
+                    <button @click="signIn">sign in</button>
                 </div>
             </div>
         </div>
@@ -15,10 +15,9 @@
             <div>
                 <h2>Sign up</h2>
                 <div class="form_list">
-                    <input  type="text" placeholder="Username" >
-                    <input  type="password" placeholder="Password">
-                    <input  type="mail" placeholder="E-mail">
-                    <button >sign up</button>
+                    <input  type="text" placeholder="Mail Adress" v-model="username">
+                    <input  type="password" placeholder="Password" v-model="password">
+                    <button @click="signUp">sign up</button>
                 </div>
             </div>
         </div>
@@ -26,6 +25,7 @@
 </template>
 
 <script>
+import firebase from 'firebase'
 import { mapGetters, mapActions } from 'vuex'
 import * as types from '../store/mutation-types'
 import * as consts from '../consts/const'
@@ -41,7 +41,9 @@ export default {
   },
   data: () => ({
     SHOW_SIGN_IN: consts.SHOW_SIGNIN_FORM,
-    SHOW_SIGN_UP: consts.SHOW_SIGNUP_FORM
+    SHOW_SIGN_UP: consts.SHOW_SIGNUP_FORM,
+    username: '',
+    password: ''
   }),
   computed: {
     ...mapGetters({
@@ -51,7 +53,27 @@ export default {
   methods: {
     ...mapActions([
       types.UPDATE_WELCOME_MENU_STATE
-    ])
+    ]),
+    signUp () {
+      firebase.auth().createUserWithEmailAndPassword(this.username, this.password)
+        .then(user => {
+          this.$router.push('/editor')
+        })
+        .catch(error => {
+          alert(error.message)
+        })
+    },
+    signIn () {
+      firebase.auth().signInWithEmailAndPassword(this.username, this.password).then(
+        user => {
+          alert('Success!')
+          this.$router.push('/editor')
+        },
+        err => {
+          alert(err.message)
+        }
+      )
+    }
   },
   created () {
   },
