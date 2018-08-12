@@ -58,10 +58,11 @@ export default {
   name: 'welcome',
 
   data: () => ({
-    isNone: false,
-    SHOW_ALL: consts.SHOW_ALL_FORM,
-    SHOW_SIGN_IN: consts.SHOW_SIGNIN_FORM,
-    SHOW_SIGN_UP: consts.SHOW_SIGNUP_FORM
+    isNone: false, // 画像を消す
+    SHOW_ALL: consts.SHOW_ALL_FORM, // 吹き出し表示
+    SHOW_SIGN_IN: consts.SHOW_SIGNIN_FORM, // サインインフォーム
+    SHOW_SIGN_UP: consts.SHOW_SIGNUP_FORM, // 登録フォーム
+    userDate: null
   }),
   props: {
   },
@@ -94,7 +95,10 @@ export default {
     firebase.auth().onAuthStateChanged(user => {
       console.log(user)
       if (user) {
+        this.userDate = user
         this.$router.push('/editor')
+      } else {
+        this.userDate = user
       }
     })
   },

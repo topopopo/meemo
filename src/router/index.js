@@ -1,12 +1,12 @@
 // index.js
 import Vue from 'vue'
-import Router from 'vue-router'
+import VueRouter from 'vue-router'
 import Welcome from '@/pages/Welcome'
 import Editor from '@/pages/Editor'
 
-Vue.use(Router)
+Vue.use(VueRouter)
 
-let router = new Router({
+const router = new VueRouter({
   routes: [
     {
       path: '/',

@@ -22,7 +22,6 @@ export default {
       firebase.auth().signOut().then(() => {
         this.$router.push('/')
       })
-      firebase.auth().signOut()
     }
   },
   computed: {
