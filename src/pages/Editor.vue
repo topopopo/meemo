@@ -17,6 +17,8 @@ export default {
   data: () => ({
     name: firebase.auth().currentUser.email
   }),
+  props: {
+  },
   methods: {
     signOut: function () {
       firebase.auth().signOut().then(() => {
