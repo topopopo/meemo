@@ -1,12 +1,13 @@
 <template>
   <div class="welcome_side">
     <button class="right_btn" @click="next(text)">{{text}}</button>
-    <button class="left_btn">google</button>
+    <button class="left_btn" @click="googleLogin">google</button>
     <div class="bottom_arrow" @click="Back"></div>
   </div>
 </template>
 
 <script>
+import firebase from 'firebase'
 import { mapGetters, mapActions } from 'vuex'
 import * as types from '../store/mutation-types'
 import * as consts from '../consts/const'
@@ -38,7 +39,6 @@ export default {
       types.UPDATE_WELCOME_ALL_STATE
     ]),
     next (text) {
-      console.log(text)
       if (text === 'sign up') {
         this[types.UPDATE_WELCOME_MENU_STATE](consts.SHOW_SIGNUP_FORM)
         this[types.UPDATE_WELCOME_ALL_STATE](false)
@@ -51,6 +51,11 @@ export default {
       this[types.UPDATE_WELCOME_ALL_STATE](true)
       // リセット
       this[types.UPDATE_WELCOME_MENU_STATE](0)
+    },
+    googleLogin () {
+      firebase
+        .auth()
+        .signInWithRedirect(new firebase.auth.GoogleAuthProvider())
     }
   },
   created () {

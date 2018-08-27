@@ -93,10 +93,8 @@ export default {
   },
   created () {
     firebase.auth().onAuthStateChanged(user => {
-      console.log(user)
       if (user) {
         this.userDate = user
-        this.$router.push('/editor')
       } else {
         this.userDate = user
       }
