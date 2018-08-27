@@ -2,34 +2,27 @@
     <div>
         <div v-if="Mode == 'signin'">
             <div class="signin">
-                <transition name="bounce"
-                    >
-                    <div v-if="show" class="signin_balloon" key="0">
+
+                    <div class="signin_balloon">
                         <h2 @click=showlogin>Sign in?</h2>
                     </div>
-                </transition>
             </div>
         </div>
 
         <div v-if="Mode == 'signup'">
             <div class="signup">
-                <transition name="bounce"
-                    >
-                    <div v-if="show" class="signup_balloon">
+
+                    <div class="signup_balloon">
                         <h2 @click=showform>Sign up?</h2>
                     </div>
-                </transition>
             </div>
         </div>
 
         <div v-if="Mode == 'google'">
-            <transition
-                name="bounce"
-                >
-                <div v-if="show" class="google_baloon">
+
+                <div class="google_baloon">
                     <h2 @click="googleLogin">google?</h2>
                 </div>
-            </transition>
         </div>
     </div>
 </template>
@@ -166,42 +159,7 @@ export default {
         cursor: unset;
     }
 }
-.signin_balloon:before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 100%;
-    margin-top: -15px;
-    border: 15px solid transparent;
-    border-left: 15px solid #fff;
-    @include mq(sm) {
-        display: none;
-    }
-}
-.signup_balloon:before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: -30px;
-    margin-top: -15px;
-    border: 15px solid transparent;
-    border-right: 15px solid #fff;
-    @include mq(sm) {
-        display: none;
-    }
-}
-.google_baloon:before {
-    content: "";
-    position: absolute;
-    top: -30px;
-    left: 50%;
-    margin-left: -15px;
-    border: 15px solid transparent;
-    border-bottom: 15px solid #fff;
-    @include mq(sm) {
-        display: none;
-    }
-}
+
 .signin_balloon:hover,
 .signup_balloon:hover,
 .google_baloon:hover {

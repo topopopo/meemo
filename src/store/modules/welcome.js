@@ -3,7 +3,7 @@ import * as types from '../mutation-types'
 // state
 export const state = {
   [types.WELCOME_MENU_STATE]: 0,
-  [types.WELCOME_ALL_STATE]: false
+  [types.WELCOME_ALL_STATE]: true
 }
 
 // mutations

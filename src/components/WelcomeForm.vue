@@ -29,7 +29,6 @@ import firebase from 'firebase'
 import { mapGetters, mapActions } from 'vuex'
 import * as types from '../store/mutation-types'
 import * as consts from '../consts/const'
-import WelcomeSideMenu from '../components/WelcomeSideMenu'
 
 export default {
   name: 'w-form',
@@ -77,7 +76,6 @@ export default {
   created () {
   },
   components: {
-    WelcomeSideMenu
   }
 }
 </script>
