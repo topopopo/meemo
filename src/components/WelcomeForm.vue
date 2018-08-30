@@ -87,11 +87,9 @@ export default {
     position: relative;
     width: 400px;
     margin: auto;
-    margin-top: 80px;
+    padding: 20px;
     @include mq(sm) {
-        width: 250px;
-        margin-top: 30px;
-        position: unset;
+        width: 100%;
     }
     .form-enter-active {
         transition: opacity 5s;
@@ -111,13 +109,14 @@ export default {
         flex-direction: column;
         input {
                 width: 100%;
-                padding: 20px 0px;
+                padding: 5px 0px;
                 background: transparent;
                 border: 0;
                 border-bottom: 1px solid #435160;
                 outline: none;
                 color: #fff;
-                font-size: 16px;
+                font-size: 18px;
+                margin-bottom: 10px;
             @include mq(){
                 margin:0 auto 15px auto;
                 padding: 10px;

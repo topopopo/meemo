@@ -18,7 +18,7 @@
                     </transition>
                 </div>
 
-                <div class="col-lg-6 p-relative">
+                <div class="col-lg-6 d-flex flex-column justify-content-center">
                     <transition name="fade" mode="out-in" enter-active-class="animated bounceInLeft">
                             <div v-if="show" key="ballon">
                                 <WelcomeBalloon  Mode="signin"></WelcomeBalloon>
@@ -28,11 +28,11 @@
                             <welcome-form v-if="welcomeState === SHOW_SIGN_IN" FormName="signin" key="signin"></welcome-form>
                             <welcome-form v-if="welcomeState === SHOW_SIGN_UP" FormName="signup" key="signup"></welcome-form>
                     </transition>
+
+                    <WelcomeFooterMenu v-if="welcomeState === SHOW_SIGN_UP" text='sign in'></WelcomeFooterMenu>
+                    <WelcomeFooterMenu v-if="welcomeState === SHOW_SIGN_IN" text='sign up'></WelcomeFooterMenu>
                 </div>
             </div>
-
-            <WelcomeFooterMenu v-if="welcomeState === SHOW_SIGN_UP" text='sign in'></WelcomeFooterMenu>
-            <WelcomeFooterMenu v-if="welcomeState === SHOW_SIGN_IN" text='sign up'></WelcomeFooterMenu>
 
         </div>
     </div>
@@ -116,6 +116,9 @@ export default {
     background: no-repeat url("../assets/images/umi.jpg");
     background-size: 100%;
     height: 100vh;
+    @include mq(sm){
+        background-size: unset;
+    }
     .title {
         font-family: 'Lobster', cursive;
         height: 215px;
@@ -185,6 +188,16 @@ export default {
             -webkit-box-ordinal-group: 0;
             order: -1;
             margin: auto;
+            margin-bottom: 25px;
+        }
+
+        img {
+            width: 300px;
+            height: 300px;
+            @include mq(sm){
+                width: 100px;
+                height: 100px;
+            }
         }
     }
 
