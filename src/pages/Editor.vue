@@ -13,6 +13,8 @@
 <script>
 import firebase from 'firebase'
 import EditorText from '../components/EditorText'
+import { mapActions } from 'vuex'
+import * as types from '../store/mutation-types'
 
 export default {
   name: 'editor',
@@ -25,9 +27,12 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      types.UPDATE_SUCCESS_MODAL_STATE
+    ]),
     signOut () {
       firebase.auth().signOut().then(() => {
-        this.$router.push('/')
+        this[types.UPDATE_SUCCESS_MODAL_STATE](false)
       })
     }
   },
