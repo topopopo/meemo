@@ -3,7 +3,16 @@ img {
     height: 100%;
 }
 body {
+    background: url(/static/img/umi.61a5342.jpg);
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #464646;
+    background-position: center center;
+    background-repeat: no-repeat;
     font-family: Arial, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, メイリオ, Meiryo, "ＭＳＰゴシック", "MS PGothic", sans-serif;
+}
+li {
+    list-style: none;
 }
 
 
