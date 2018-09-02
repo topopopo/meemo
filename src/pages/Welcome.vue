@@ -118,6 +118,7 @@ export default {
     height: 100vh;
     @include mq(sm){
         background-size: unset;
+        height: 100%;
     }
     .title {
         font-family: 'Lobster', cursive;

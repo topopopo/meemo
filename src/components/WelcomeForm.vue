@@ -3,24 +3,78 @@
         <div class="signin" v-if="FormName == 'signin'">
             <div>
                 <h2>Sign in</h2>
-                <div class="form_list">
-                    <input  type="text" placeholder="Mail Adress" v-model="username">
-                    <input  type="password" placeholder="Password" v-model="password">
-                    <button @click="signIn">sign in</button>
-                </div>
+                <b-form class="form_list" @submit="signIn">
+                    <b-form-group id="exampleInputGroup1"
+                                    label-for="maillForm1">
+                        <b-form-input id="maillForm1"
+                                    type="email"
+                                    v-model="form.email"
+                                    required
+                                    placeholder="Enter email">
+                        </b-form-input>
+                    </b-form-group>
+                    <b-form-group id="exampleInputGroup2"
+                        label-for="passwordForm1">
+                        <b-form-input id="passwordForm1"
+                            type="password"
+                            v-model="form.password"
+                            required
+                            placeholder="Enter Password">
+                        </b-form-input>
+                    </b-form-group>
+                    <b-button type="submit">Submit</b-button>
+                </b-form>
             </div>
         </div>
 
         <div class="signup" v-if="FormName == 'signup'">
             <div>
                 <h2>Sign up</h2>
-                <div class="form_list">
-                    <input  type="text" placeholder="Mail Adress" v-model="username">
-                    <input  type="password" placeholder="Password" v-model="password">
-                    <button @click="signUp">sign up</button>
-                </div>
+                <b-form class="form_list" @submit="signUp">
+                    <b-form-group id="exampleInputGroup1"
+                                    label-for="maillForm1">
+                        <b-form-input id="maillForm1"
+                                    type="email"
+                                    v-model="form.email"
+                                    required
+                                    placeholder="Enter email">
+                        </b-form-input>
+                    </b-form-group>
+                    <b-form-group id="exampleInputGroup2"
+                        label-for="passwordForm1">
+                        <b-form-input id="passwordForm1"
+                            type="password"
+                            v-model="form.password"
+                            required
+                            placeholder="Enter Password">
+                        </b-form-input>
+                    </b-form-group>
+                    <b-button type="submit">Submit</b-button>
+                </b-form>
             </div>
         </div>
+
+        <b-modal id="modal1"
+            ref="varidateModal"
+            hide-footer
+            hide-header
+            centered>
+            <b-alert variant="danger"
+            show>
+            {{err}}
+            </b-alert>
+        </b-modal>
+
+        <b-modal id="modal2"
+            ref="completeModal"
+            hide-footer
+            hide-header
+            centered>
+            <b-alert variant="success"
+             show>
+            登録完了しました！ログインしてください
+            </b-alert>
+        </b-modal>
     </div>
 </template>
 
@@ -41,8 +95,11 @@ export default {
   data: () => ({
     SHOW_SIGN_IN: consts.SHOW_SIGNIN_FORM,
     SHOW_SIGN_UP: consts.SHOW_SIGNUP_FORM,
-    username: '',
-    password: ''
+    form: {
+      email: '',
+      password: ''
+    },
+    err: ''
   }),
   computed: {
     ...mapGetters({
@@ -54,21 +111,23 @@ export default {
       types.UPDATE_WELCOME_MENU_STATE
     ]),
     signUp () {
-      firebase.auth().createUserWithEmailAndPassword(this.username, this.password)
-        .then(user => {
-          this.$router.push('/editor')
+      firebase.auth().createUserWithEmailAndPassword(this.form.email, this.form.password).then(
+        user => {
+          this.$refs.completeModal.show()
         })
-        .catch(error => {
-          alert(error.message)
+        .catch(err => {
+          this.err = err.message
+          this.$refs.varidateModal.show()
         })
     },
     signIn () {
-      firebase.auth().signInWithEmailAndPassword(this.username, this.password).then(
+      firebase.auth().signInWithEmailAndPassword(this.form.email, this.form.password).then(
         user => {
           this.$router.push('/editor')
         },
         err => {
-          alert(err.message)
+          this.err = err.message
+          this.$refs.varidateModal.show()
         }
       )
     }
@@ -117,6 +176,7 @@ export default {
                 color: #fff;
                 font-size: 18px;
                 margin-bottom: 10px;
+                border-radius: 0;
             @include mq(){
                 margin:0 auto 15px auto;
                 padding: 10px;
