@@ -2,34 +2,28 @@
     <div>
         <div v-if="Mode == 'signin'">
             <div class="signin">
-                <transition name="bounce"
-                    >
-                    <div v-if="show" class="signin_balloon" key="0">
-                        <h2 @click=showlogin>Sign in???</h2>
+
+                    <div @click=showlogin class="signin_balloon ripple">
+                        <h2>Sign in?</h2>
                     </div>
-                </transition>
             </div>
         </div>
 
         <div v-if="Mode == 'signup'">
             <div class="signup">
-                <transition name="bounce"
-                    >
-                    <div v-if="show" class="signup_balloon">
-                        <h2 @click=showform>Sign up???</h2>
+
+                    <div @click=showform class="signup_balloon ripple">
+                        <h2>Sign up?</h2>
                     </div>
-                </transition>
             </div>
         </div>
 
         <div v-if="Mode == 'google'">
-            <transition
-                name="bounce"
-                >
-                <div v-if="show" class="google_baloon">
+            <div class="google">
+                <div @click="googleLogin" class="google_baloon ripple">
                     <h2>google?</h2>
                 </div>
-            </transition>
+            </div>
         </div>
     </div>
 </template>
@@ -38,6 +32,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import * as types from '../store/mutation-types'
 import * as consts from '../consts/const'
+import firebase from 'firebase'
 
 export default {
   name: 'w-balloon',
@@ -68,13 +63,16 @@ export default {
       this[types.UPDATE_WELCOME_ALL_STATE](false)
     },
     showform () {
-      console.log('popopo')
       this[types.UPDATE_WELCOME_MENU_STATE](consts.SHOW_SIGNUP_FORM)
       this[types.UPDATE_WELCOME_ALL_STATE](false)
+    },
+    googleLogin () {
+      firebase
+        .auth()
+        .signInWithRedirect(new firebase.auth.GoogleAuthProvider())
     }
   },
   created () {
-    console.log(this.Mode)
   },
   components: {
   }
@@ -87,13 +85,8 @@ export default {
 .signin,
 .signup,
 .google {
-    @include mq(sm) {
-        width: 100%;
-    }
-    &*:hover {
-        color: red;
-        opacity: 0.5;
-    }
+    margin-bottom: 25px;
+    width: 100%;
     font-family: Arial, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, メイリオ, Meiryo, "ＭＳＰゴシック", "MS PGothic", sans-serif;
     h2 {
         font-family: 'Lobster', cursive;
@@ -141,72 +134,35 @@ export default {
 .google_baloon {
     font-family: 'Lobster', cursive;
     position: relative;
-    margin: 1.5em 0;
-    padding: 15px 30px;
-    min-width: 120px;
-    max-width: 100%;
-    color: #555;
-    font-size: 16px;
-    background: #fff;
-    border-radius: 15px;
-    display: flex;
-    justify-content: center;
+    background-color: #fefefe;/*背景色*/
+    color: #000;
+    font-size: 1em;/*文字サイズ*/
+    line-height: 1;
+    text-decoration: none;
+    letter-spacing: 0.05em;/*字間*/
+    padding: 0.2em 1em;/*ボタン内の余白*/
+    border-radius: 3px;/*角の丸み*/
+    cursor: pointer;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);/*影*/
+    -webkit-tap-highlight-color: transparent;
+    transition: .3s ease-out;
     cursor: pointer;
     @include mq(){
-        padding: 15px 10px;
+        padding: 10px 10px;
     }
     @include mq(sm) {
-        color: #fff;
-        background-color: unset;
         margin: 0;
         width: 100%;
         cursor: unset;
     }
 }
-.signin_balloon:before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 100%;
-    margin-top: -15px;
-    border: 15px solid transparent;
-    border-left: 15px solid #fff;
-    @include mq(sm) {
-        display: none;
-    }
-}
-.signup_balloon:before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: -30px;
-    margin-top: -15px;
-    border: 15px solid transparent;
-    border-right: 15px solid #fff;
-    @include mq(sm) {
-        display: none;
-    }
-}
-.google_baloon:before {
-    content: "";
-    position: absolute;
-    top: -30px;
-    left: 50%;
-    margin-left: -15px;
-    border: 15px solid transparent;
-    border-bottom: 15px solid #fff;
-    @include mq(sm) {
-        display: none;
-    }
-}
+
 .signin_balloon:hover,
 .signup_balloon:hover,
 .google_baloon:hover {
     color: #000;
-    padding: 20px 35px;
-    transition: 0.5s ;
+    box-shadow: 0 3px 3px 0 rgba(0,0,0,0.14), 0 1px 7px 0 rgba(0,0,0,0.12), 0 3px 1px -1px rgba(0,0,0,0.2);
     @include mq(sm) {
-        color: #fff;
         padding: 15px 10px;
     }
 }
