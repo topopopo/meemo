@@ -63,7 +63,6 @@ export default {
       this[types.UPDATE_WELCOME_ALL_STATE](false)
     },
     showform () {
-      console.log('popopo')
       this[types.UPDATE_WELCOME_MENU_STATE](consts.SHOW_SIGNUP_FORM)
       this[types.UPDATE_WELCOME_ALL_STATE](false)
     },
@@ -71,8 +70,6 @@ export default {
       firebase
         .auth()
         .signInWithRedirect(new firebase.auth.GoogleAuthProvider())
-
-      console.log('google')
     }
   },
   created () {

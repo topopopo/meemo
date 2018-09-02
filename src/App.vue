@@ -22,6 +22,7 @@ export default {
   created () {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
+        console.log(user)
         this.isLogin = true
         this.userData = user
       } else {

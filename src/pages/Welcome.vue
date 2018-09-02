@@ -34,6 +34,17 @@
                 </div>
             </div>
 
+            <b-modal id="modal2"
+                ref="completeModal"
+                hide-footer
+                hide-header
+                centered>
+                <b-alert variant="success"
+                show>
+                登録完了しました！ログインしてください
+                </b-alert>
+            </b-modal>
+
         </div>
     </div>
 </template>
@@ -71,7 +82,8 @@ export default {
   computed: {
     ...mapGetters({
       welcomeState: types.WELCOME_MENU_STATE,
-      show: types.WELCOME_ALL_STATE
+      show: types.WELCOME_ALL_STATE,
+      successModal: types.SUCCESS_MODAL_STATE
     })
   },
   methods: {
@@ -101,6 +113,12 @@ export default {
         this.userDate = user
       }
     })
+  },
+  mounted () {
+    if (this.successModal === true) {
+      console.log('SUCCESS!!!')
+      this.$refs.completeModal.show()
+    }
   },
   components: {
     WelcomeBalloon,

@@ -31,6 +31,15 @@
             <div>
                 <h2>Sign up</h2>
                 <b-form class="form_list" @submit="signUp">
+                    <b-form-group id="userName"
+                                    label-for="userForm1">
+                        <b-form-input id="userForm1"
+                                    type="text"
+                                    v-model="form.user"
+                                    required
+                                    placeholder="Enter User Name">
+                        </b-form-input>
+                    </b-form-group>
                     <b-form-group id="exampleInputGroup1"
                                     label-for="maillForm1">
                         <b-form-input id="maillForm1"
@@ -96,6 +105,7 @@ export default {
     SHOW_SIGN_IN: consts.SHOW_SIGNIN_FORM,
     SHOW_SIGN_UP: consts.SHOW_SIGNUP_FORM,
     form: {
+      user: '',
       email: '',
       password: ''
     },
@@ -108,12 +118,17 @@ export default {
   },
   methods: {
     ...mapActions([
-      types.UPDATE_WELCOME_MENU_STATE
+      types.UPDATE_WELCOME_MENU_STATE,
+      types.UPDATE_SUCCESS_MODAL_STATE
     ]),
     signUp () {
       firebase.auth().createUserWithEmailAndPassword(this.form.email, this.form.password).then(
         user => {
-          this.$refs.completeModal.show()
+          firebase.auth().signOut()
+          firebase.auth().currentUser.updateProfile({
+            displayName: this.form.user
+          })
+          this[types.UPDATE_SUCCESS_MODAL_STATE](true)
         })
         .catch(err => {
           this.err = err.message
