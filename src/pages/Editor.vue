@@ -1,18 +1,21 @@
 <template>
     <div id="editor">
-      <div class="container">
+      <!-- <div class="container">
         <h2>{{user.displayName}}</h2>
         <br>
         <button @click="signOut">log out</button>
 
         <editor-text></editor-text>
-      </div>
+      </div> -->
+      <editor-list></editor-list>
+      <button @click="signOut">log out</button>
     </div>
 </template>
 
 <script>
 import firebase from 'firebase'
 import EditorText from '../components/EditorText'
+import EditorList from '../components/EditorList'
 import { mapActions } from 'vuex'
 import * as types from '../store/mutation-types'
 
@@ -37,7 +40,8 @@ export default {
     }
   },
   components: {
-    EditorText
+    EditorText,
+    EditorList
   },
   computed: {
   },

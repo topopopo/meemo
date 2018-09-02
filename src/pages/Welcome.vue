@@ -131,13 +131,6 @@ export default {
 <style scoped lang="scss">
 @import '../assets/css/common.scss';
 #welcome {
-    background: no-repeat url("../assets/images/umi.jpg");
-    background-size: 100%;
-    height: 100vh;
-    @include mq(sm){
-        background-size: unset;
-        height: 100%;
-    }
     .title {
         font-family: 'Lobster', cursive;
         height: 215px;
