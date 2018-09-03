@@ -7,7 +7,7 @@
 
         <editor-text></editor-text>
       </div> -->
-      <editor-list></editor-list>
+      <editor-list :user="user"></editor-list>
       <button @click="signOut">log out</button>
     </div>
 </template>

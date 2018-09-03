@@ -13,9 +13,10 @@
                 </b-container>
             </div>
             <div class="user_profile d-flex justify-content-center">
-                <img src="../assets/images/kosuge.jpg">
-                <div class="user_details">
-                    <h4>kosuge</h4>
+                <img v-if="!user.photoURL" src="../assets/images/kosuge.jpg">
+                <img v-else :src="user.photoURL"/>
+                <div class="user_details d-flex align-items-center">
+                    <p>{{user.displayName}}</p>
                 </div>
             </div>
         </div>
@@ -47,7 +48,24 @@ export default {
       'スイカ',
       'いちご'
     ]
-  })
+  }),
+
+  props: {
+    user: {
+      type: Object
+    }
+  },
+
+  methods: {
+    image () {
+      console.log(this.user.photoURL)
+      if (this.user.photoURL === '') {
+        return require('../assets/images/kosuge.jpg')
+      } else {
+        return require('../assets/images/kosuge.jpg')
+      }
+    }
+  }
 }
 </script>
 
@@ -145,6 +163,11 @@ export default {
             width: 100px;
             height: 100px;
             border-radius: 100%;
+            object-fit: cover;
+        }
+
+        .user_details {
+            font-size: 2em;
         }
     }
 
