@@ -51,3 +51,7 @@ $breakpoints: (
         display: flex;
     }
 }
+
+.flip-list-move {
+    transition: transform 1s;
+}

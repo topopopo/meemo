@@ -2,21 +2,15 @@
     <div id="editor_list">
         <div class="overlay"></div>
         <div class="list_top">
-            <div class="list_header">
-                <b-container class="d-flex">
-                    <div class="logo">meemo!!</div>
-                    <a href="#" class="open-main-menu">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </a>
-                </b-container>
-            </div>
+
+            <Header></Header>
+
             <div class="user_profile d-flex justify-content-center">
                 <img v-if="!user.photoURL" src="../assets/images/kosuge.jpg">
                 <img v-else :src="user.photoURL"/>
                 <div class="user_details d-flex align-items-center">
                     <p>{{user.displayName}}</p>
+                    <!-- <div @click="shuffle">シャフル</div> -->
                 </div>
             </div>
         </div>
@@ -28,7 +22,9 @@
 
             <ul class="memo">
                 <b-container>
-                    <li class="memo_item" v-for="memo in memos" :key="memo.id">{{memo}}</li>
+                    <transition-group name="flip-list" mode="out-in">
+                    <li class="memo_item" v-for="memo in memos" v-bind:key="memo">{{memo}}</li>
+                    </transition-group>
                 </b-container>
             </ul>
         </div>
@@ -37,17 +33,15 @@
 </template>
 
 <script>
+import Header from '../components/Header.vue'
 export default {
   name: 'editor-list',
 
   data: () => ({
     memos: [
-      'りんご',
-      'バナナ',
-      'パイナップル',
-      'スイカ',
-      'いちご'
-    ]
+      1, 2, 3, 4, 5, 6, 7, 8, 9
+    ],
+    visible: false
   }),
 
   props: {
@@ -57,14 +51,14 @@ export default {
   },
 
   methods: {
-    image () {
-      console.log(this.user.photoURL)
-      if (this.user.photoURL === '') {
-        return require('../assets/images/kosuge.jpg')
-      } else {
-        return require('../assets/images/kosuge.jpg')
-      }
+    shuffle () {
+      // やってみたかっただけ
+      this.memos.sort((a, b) => Math.random() > 0.5 ? -1 : 1)
     }
+  },
+
+  components: {
+    Header
   }
 }
 </script>
@@ -101,57 +95,6 @@ export default {
         padding-top: 60px;
         @include mq(sm) {
             min-height: 186px;
-        }
-
-        .list_header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 30px 0;
-            z-index: 999;
-            left: 0;
-            transition: all .3s ease;
-
-            .logo {
-                font-size: 30px;
-            }
-            .open-main-menu {
-                margin-left: auto;
-                display: -ms-flexbox;
-                display: flex;
-                -ms-flex-align: center;
-                align-items: center;
-                font-weight: 900;
-                &:hover {
-                    span {
-                        border-color: #54D6C7;
-                        background-color: #54D6C7;
-                    }
-                }
-                span {
-                    display: block;
-                    transition: all .3s ease;
-                    border-radius: 100%;
-                    margin: 0 3px;
-                    border: 3px solid;
-                    color: #fff;
-                    &:first-of-type {
-                        width: 10px;
-                        height: 10px;
-                        background-color: #fff;
-                    }
-                    &:nth-child(2) {
-                        width: 14px;
-                        height: 14px;
-                        border: 3px solid #fff;
-                    }
-                    &:last-of-type {
-                        width: 16px;
-                        height: 16px;
-                        background-color: #fff;
-                    }
-                }
-            }
         }
     }
 
@@ -192,12 +135,14 @@ export default {
         }
 
         .memo {
-            background-color: #fff;
+            background: url(https://theme.crumina.net/html-woox-creative/img/body-bg.png);
+            // background-color: #fff;
             z-index: 1;
             padding: 35px;
             position: relative;
             color: #222;
             padding-top: 0;
+            padding-bottom: 0;
             li {
                 position: relative;
                 background-color: #fefefe;
@@ -235,7 +180,7 @@ export default {
             content: '';
             position: absolute;
             top: -28px;
-            background: #fff;
+            background: url(https://theme.crumina.net/html-woox-creative/img/body-bg.png);
             left: 0px;
             right: 0;
             height: 240px;
