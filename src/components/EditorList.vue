@@ -80,6 +80,7 @@ export default {
         position: relative;
         min-height: 240px;
         color: #fff;
+        padding-top: 60px;
         @include mq(sm) {
             min-height: 186px;
         }
