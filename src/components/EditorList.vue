@@ -1,9 +1,9 @@
 <template>
     <div id="editor_list">
         <div class="overlay"></div>
-        <div class="list_top">
+        <div class="container list_top">
 
-            <Header></Header>
+            <!-- <Header></Header> -->
 
             <div class="user_profile d-flex justify-content-center">
                 <img v-if="!user.photoURL" src="../assets/images/kosuge.jpg">
@@ -20,6 +20,10 @@
                 <h3>My Memo!!</h3>
             </div>
 
+            <a id="add" @click="addList">
+            <i class="fa fa-plus"></i>
+            </a>
+
             <ul class="memo">
                 <b-container>
                     <transition-group name="flip-list" mode="out-in">
@@ -34,6 +38,10 @@
 
 <script>
 import Header from '../components/Header.vue'
+import { mapActions } from 'vuex'
+import * as types from '../store/mutation-types'
+import * as consts from '../consts/const'
+
 export default {
   name: 'editor-list',
 
@@ -51,9 +59,15 @@ export default {
   },
 
   methods: {
+    ...mapActions([
+      types.UPDATE_EDITOR_MODE_STATE
+    ]),
     shuffle () {
       // やってみたかっただけ
       this.memos.sort((a, b) => Math.random() > 0.5 ? -1 : 1)
+    },
+    addList () {
+      this[types.UPDATE_EDITOR_MODE_STATE](consts.EDITOR_EDIT_MODE)
     }
   },
 
@@ -100,6 +114,11 @@ export default {
 
     .user_profile {
         margin-top: 90px;
+        @include mq(sm) {
+            margin-top: 30px;
+            margin-bottom: 50px;
+            justify-content: flex-start!important;
+        }
 
         img {
             margin-right: 20px;
@@ -107,15 +126,22 @@ export default {
             height: 100px;
             border-radius: 100%;
             object-fit: cover;
+            @include mq (sm) {
+                width: 45px;
+                height: 45px;
+            }
         }
 
         .user_details {
             font-size: 2em;
+            @include mq(sm) {
+                font-size: 1em;
+            }
         }
     }
 
     .list{
-        margin-top: 160px;
+        margin-top: 15px;
         position: relative;
 
         @include mq(sm) {
@@ -131,6 +157,58 @@ export default {
                 @include mq(sm) {
                     font-size: 1.75rem;
                 }
+            }
+        }
+
+        #add {
+            position: absolute;
+            z-index: 2;
+            right: 10vw;
+            top: 0;
+            display: block;
+            width: 95px;
+            height: 95px;
+            background: #03a9f4;
+            text-align: center;
+            border-radius: 50%;
+            transition: .2s;
+            box-shadow: 0 2px 2px 0 rgba(0,0,0,.12), 0 2px 2px 0 rgba(0,0,0,.24);
+            cursor: pointer;
+
+            @include mq(md) {
+                width: 56px;
+                height: 56px;
+                top: -15px;
+            }
+            @include mq(sm) {
+                top: -30px;
+            }
+
+            i {
+                font-size: 45px;
+                display: flex;
+                justify-content: center;
+                padding: 25px;
+                color: #fff;
+                transition: 0.2s;
+                @include mq(md) {
+                    font-size: 22px;
+                    padding: 17px;
+                }
+            }
+
+            &:hover i {
+                $enter-delay: 200ms;
+                -webkit-transform: rotate(180deg);
+                transform: rotate(180deg);
+            }
+
+            &:hover {
+                box-shadow: 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12), 0 2px 4px -1px rgba(0,0,0,.2);
+            }
+
+            &:active {
+                box-shadow: unset;
             }
         }
 
