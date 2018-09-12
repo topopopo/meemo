@@ -28,9 +28,10 @@
                             <welcome-form v-if="welcomeState === SHOW_SIGN_IN" FormName="signin" key="signin"></welcome-form>
                             <welcome-form v-if="welcomeState === SHOW_SIGN_UP" FormName="signup" key="signup"></welcome-form>
                     </transition>
-
-                    <WelcomeFooterMenu v-if="welcomeState === SHOW_SIGN_UP" text='sign in'></WelcomeFooterMenu>
-                    <WelcomeFooterMenu v-if="welcomeState === SHOW_SIGN_IN" text='sign up'></WelcomeFooterMenu>
+                    <transition name="fade" mode="out-in" enter-active-class="animated fadeIn">
+                        <WelcomeFooterMenu v-if="welcomeState === SHOW_SIGN_UP" text='sign in'></WelcomeFooterMenu>
+                        <WelcomeFooterMenu v-if="welcomeState === SHOW_SIGN_IN" text='sign up'></WelcomeFooterMenu>
+                    </transition>
                 </div>
             </div>
 
@@ -130,14 +131,15 @@ export default {
 
 <style scoped lang="scss">
 @import '../assets/css/common.scss';
+body {
+    background-image: url(../assets/images/umi.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #464646;
+}
+
 #welcome {
-    background: no-repeat url("../assets/images/umi.jpg");
-    background-size: 100%;
-    height: 100vh;
-    @include mq(sm){
-        background-size: unset;
-        height: 100%;
-    }
     .title {
         font-family: 'Lobster', cursive;
         height: 215px;

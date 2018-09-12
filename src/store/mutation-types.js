@@ -1,9 +1,14 @@
 // welcome.js
+// welcomeメニュー表示
 export const WELCOME_MENU_STATE = 'WELCOME_MENU_STATE'
 export const UPDATE_WELCOME_MENU_STATE = 'UPDATE_WELCOME_MENU_STATE'
 export const WELCOME_ALL_STATE = 'WELCOME_ALL_STATE'
 export const UPDATE_WELCOME_ALL_STATE = 'UPDATE_WELCOME_ALL_STATE'
-
-// welcomeForm.js
+// 登録完了モーダル表示
 export const SUCCESS_MODAL_STATE = 'SUCCESS_MODAL_STATE'
 export const UPDATE_SUCCESS_MODAL_STATE = 'UPDATE_SUCCESS_MODAL_STATE'
+
+// editor.js
+// エディター表示
+export const EDITOR_MODE_STATE = 'EDITOR_MODE_STATE'
+export const UPDATE_EDITOR_MODE_STATE = 'UPDATE_EDITOR_MODE_STATE'

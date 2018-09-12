@@ -3,6 +3,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Welcome from '@/pages/Welcome'
 import Editor from '@/pages/Editor'
+import EditorText from '@/components/EditorText'
 // import firebase from 'firebase'
 
 Vue.use(VueRouter)
@@ -15,10 +16,15 @@ const router = new VueRouter({
       component: Welcome
     },
     {
-      path: '/editor',
+      path: '/meemoList',
       name: 'Editor',
       component: Editor
       // meta: { requiresAuth: true }
+    },
+    {
+      path: '/meemoList/popo',
+      name: 'popo',
+      component: EditorText
     }
   ]
 })

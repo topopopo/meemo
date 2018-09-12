@@ -39,6 +39,13 @@ export default {
 </script>
 
 <style>
+body {
+  background-image: url(./assets/images/umi.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #464646;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

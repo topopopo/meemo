@@ -5,6 +5,9 @@ img {
 body {
     font-family: Arial, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, メイリオ, Meiryo, "ＭＳＰゴシック", "MS PGothic", sans-serif;
 }
+li {
+    list-style: none;
+}
 
 
 //ブレイクポイント設定
@@ -47,4 +50,8 @@ $breakpoints: (
     @include mq(sm){
         display: flex;
     }
+}
+
+.flip-list-move {
+    transition: transform 1s;
 }

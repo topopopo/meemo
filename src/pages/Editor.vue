@@ -1,25 +1,30 @@
 <template>
     <div id="editor">
-      <div class="container">
-        <h2>{{user.displayName}}</h2>
-        <br>
-        <button @click="signOut">log out</button>
+      <Header></Header>
 
-        <editor-text></editor-text>
-      </div>
+      <transition>
+        <editor-list :user="user" v-if="EDITOR_LIST_MODE === editorMode"></editor-list>
+        <editor-text v-if="EDITOR_EDIT_MODE === editorMode"></editor-text>
+      </transition>
+      <button @click="signOut">log out</button>
     </div>
 </template>
 
 <script>
 import firebase from 'firebase'
 import EditorText from '../components/EditorText'
-import { mapActions } from 'vuex'
+import EditorList from '../components/EditorList'
+import Header from '../components/Header.vue'
+import { mapGetters, mapActions } from 'vuex'
 import * as types from '../store/mutation-types'
+import * as consts from '../consts/const'
 
 export default {
   name: 'editor',
 
   data: () => ({
+    EDITOR_LIST_MODE: consts.EDITOR_LIST_MODE,
+    EDITOR_EDIT_MODE: consts.EDITOR_EDIT_MODE
   }),
   props: {
     user: {
@@ -37,9 +42,14 @@ export default {
     }
   },
   components: {
-    EditorText
+    EditorText,
+    EditorList,
+    Header
   },
   computed: {
+    ...mapGetters({
+      editorMode: types.EDITOR_MODE_STATE
+    })
   },
   async mounted () {
     // this.name = firebase.auth().currentUser.email
@@ -50,5 +60,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+body {
+  background: unset;
+}
 
 </style>
