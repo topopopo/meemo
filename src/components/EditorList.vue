@@ -3,7 +3,7 @@
         <div class="overlay"></div>
         <div class="container list_top">
 
-            <!-- <Header></Header> -->
+            <Header></Header>
 
             <div class="user_profile d-flex justify-content-center">
                 <img v-if="!user.photoURL" src="../assets/images/kosuge.jpg">

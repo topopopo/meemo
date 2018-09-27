@@ -1,8 +1,6 @@
 <template>
     <div id="editor">
-      <Header></Header>
-
-      <transition>
+      <transition mode="out-in" enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">
         <editor-list :user="user" v-if="EDITOR_LIST_MODE === editorMode"></editor-list>
         <editor-text v-if="EDITOR_EDIT_MODE === editorMode"></editor-text>
       </transition>

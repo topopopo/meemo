@@ -68,4 +68,38 @@ export default {
         }
     }
 }
+
+#editor_text {
+    .list_header {
+        padding: 0;
+        height: 55px;
+        background-color: #fff;
+        box-shadow: 15px 0 40px 0 rgba(61,67,79,.08);
+        .open-main-menu {
+            span {
+            display: block;
+            transition: all .3s ease;
+            border-radius: 100%;
+            margin: 0 3px;
+            border: 3px solid;
+            color: #000;
+            &:first-of-type {
+                background-color: #000;
+            }
+            &:nth-child(2) {
+                border: 3px solid #000;
+            }
+            &:last-of-type {
+                background-color: #000;
+            }
+            }
+            &:hover {
+                span {
+                    border-color: #54D6C7;
+                    background-color: #54D6C7;
+                }
+            }
+        }
+    }
+}
 </style>
